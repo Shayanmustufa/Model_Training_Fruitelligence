@@ -1,0 +1,7 @@
+[2026-08-30T09:00:52.275Z] farmer.khairpur@agrovisoon.pk
+[2026-08-30T09:33:49.366Z] another.farmer@panjgur.pk
+[2026-08-30T09:35:28.765Z] arfeen.siddiqui.pk@gmail.com
+[2026-08-30T10:33:44.874Z] verified.subscriber@agrovision.pk
+[2026-08-31T07:19:55.760Z] google.sheet.test@agrovisoon.pk
+[2026-08-31T07:23:06.979Z] verified.cloud.subscriber@agrovisoon.pk
+[2026-08-31T07:26:22.894Z] live.test.notification@agrovisoon.pk

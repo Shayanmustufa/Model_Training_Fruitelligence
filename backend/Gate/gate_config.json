@@ -1,0 +1,9 @@
+{
+    "model_name": "mobilenetv4_conv_small.e2400_r224_in1k",
+    "checkpoint_path": "d:\\k230808\\checkpoints\\mobilenetv4_gate_best.pth",
+    "calibrated_threshold": 0.01,
+    "target_far": 0.005,
+    "validation_far": 0.00199203187250996,
+    "validation_frr": 0.0,
+    "validation_date_recall": 1.0
+}

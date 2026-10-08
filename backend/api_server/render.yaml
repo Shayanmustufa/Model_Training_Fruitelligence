@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: agrovisoon-classifier-api
+    runtime: python
+    rootDir: backend/api_server
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1
+    plan: free
+    envVars:
+      - key: GDRIVE_MODEL_ID
+        sync: false          # You must paste your Google Drive file ID in Render dashboard
+      - key: GDRIVE_GATE_ONNX_ID
+        sync: false          # Optional if Gate/mobilenetv4_gate.onnx is in the repo clone
+      - key: MODEL_CACHE_DIR
+        value: /tmp/agrovisoon_model
+    healthCheckPath: /health

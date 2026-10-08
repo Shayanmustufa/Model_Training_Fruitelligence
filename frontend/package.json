@@ -1,0 +1,33 @@
+{
+  "name": "agrovision-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint",
+    "copy-ort": "node scripts/copy-ort.mjs",
+    "postinstall": "node scripts/copy-ort.mjs",
+    "i18n:check": "node ../scripts/check-i18n.mjs"
+  },
+  "dependencies": {
+    "framer-motion": "^11.18.0",
+    "lucide-react": "^0.474.0",
+    "next": "16.2.11",
+    "next-intl": "^4.14.9",
+    "onnxruntime-web": "^1.20.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,6 @@
+# Ignore cached model downloads
+/tmp/
+*.pth
+__pycache__/
+*.pyc
+.env

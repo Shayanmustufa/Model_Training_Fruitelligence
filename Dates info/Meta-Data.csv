@@ -1,0 +1,9 @@
+﻿ID,Variety,Nutrient(s),Source,Country,Maturity,Basis,Reliability
+S1,Ajwa,Macro + sugars + minerals + fiber + iron,Peer-reviewed paper,Saudi Arabia,Tamar,DW,High
+S2,Amber,Macro + sugars + fiber,Peer-reviewed paper,Saudi Arabia,Tamar,DW,High
+S3,Kalmi,Macro + sugars + minerals + fiber + iron,Peer-reviewed paper,Saudi Arabia,Tamar,DW,High
+S4,Mabroom,Macro + sugars + iron,Peer-reviewed paper,Saudi Arabia,Tamar,DW,High
+S5,Sagai,Macro + sugars + fiber,Peer-reviewed paper,Saudi Arabia,Tamar,DW,High
+S6,Rabbi,Macro + sugars + minerals,Peer-reviewed paper,Iran,Tamar,FW,High
+S7,Mazafati,Minerals + sugars + protein,Peer-reviewed paper,Iran,Tamar,FW,High
+S8,Zahedi,Minerals + sugars + protein,Peer-reviewed paper,Iran,Tamar,FW,High

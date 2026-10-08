@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Scratch & Personal Test Data
+user_profile.json
+**/user_profile.json
+.agents/
+__pycache__/
+*.pyc
+
+# Large model checkpoints — downloaded at runtime via GDRIVE_MODEL_ID
+# The ONNX gate (9.5 MB) IS committed; only the heavy .pth files are excluded
+*.pth
+training/.venv/
+training/inputs/
+training/outputs/
+training/runs/
+dates_dataset/
+Dates Detection.v2i.yolov5pytorch/
+Dates Detection.date-gate.dataset/
+
+# Agentic UI Samples & Delegation Runners (now in _scratch/)
+_scratch/
+_scratch/ui-samples/
+_scratch/agentic_orchestrator.py
+_scratch/delegate_runner.py
+_scratch/generate_final_components.py
+_scratch/synthesize_samples.py
+_scratch/write_tsx_components.py
+
+# TypeScript build info (large, regenerated)
+frontend/tsconfig.tsbuildinfo
+
+# Ignore the new demo clone in the parent repo
+frontend-local/
