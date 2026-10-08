@@ -7,10 +7,7 @@ import { useLiveDemo } from "../layout/LiveDemoLayout";
 import type { LiveClassifyResult } from "../layout/LiveDemoLayout";
 import CameraFeed from "./CameraFeed";
 import { useDateDetector, type DetectionBox } from "@/hooks/useDateDetector";
-import {
-  INFERENCE_INPUT_SIZE,
-  resizeImageForInference,
-} from "@/lib/resizeForInference";
+import { resizeImageForInference } from "@/lib/resizeForInference";
 
 const VERIFICATION_FRAMES = 3;
 const COUNTDOWN_MS = 5000;
@@ -21,7 +18,6 @@ type PipelineStage = "searching" | "countdown" | "classifying" | "complete" | "e
 
 interface BestFrame {
   blob: Blob;
-  contextBlob: Blob;
   confidence: number;
   area: number;
 }
@@ -94,7 +90,7 @@ async function captureFrame(
   video: HTMLVideoElement,
   box: DetectionBox,
   padding = 0.1
-): Promise<{ cropBlob: Blob; contextBlob: Blob } | null> {
+): Promise<Blob | null> {
   const displayWidth = video.clientWidth;
   const displayHeight = video.clientHeight;
   if (
@@ -139,18 +135,7 @@ async function captureFrame(
   if (!cropContext) return null;
   cropContext.drawImage(video, sx, sy, sw, sh, 0, 0, cropCanvas.width, cropCanvas.height);
 
-  const contextCanvas = document.createElement("canvas");
-  contextCanvas.width = INFERENCE_INPUT_SIZE;
-  contextCanvas.height = INFERENCE_INPUT_SIZE;
-  const context2d = contextCanvas.getContext("2d");
-  if (!context2d) return null;
-  context2d.drawImage(video, 0, 0, INFERENCE_INPUT_SIZE, INFERENCE_INPUT_SIZE);
-
-  const [cropBlob, contextBlob] = await Promise.all([
-    canvasToJpegBlob(cropCanvas, 0.9),
-    canvasToJpegBlob(contextCanvas, 0.95),
-  ]);
-  return { cropBlob, contextBlob };
+  return canvasToJpegBlob(cropCanvas, 0.9);
 }
 
 export default function LiveDemoPanel() {
@@ -257,7 +242,6 @@ export default function LiveDemoPanel() {
       });
       const inferenceImage = await resizeImageForInference(cropFile);
       form.append("image", inferenceImage, "best-date-crop.jpg");
-      form.append("context_image", bestFrame.contextBlob, "date-scene-context.jpg");
       const response = await fetch("/api/classify", {
         method: "POST",
         body: form,
@@ -326,15 +310,14 @@ export default function LiveDemoPanel() {
       samplingFrameRef.current = true;
       lastFrameSampleRef.current = now;
       const task = captureFrame(video, box, 0.1)
-        .then((frame) => {
-          if (!frame || pipelineStageRef.current !== "countdown") return;
+        .then((blob) => {
+          if (!blob || pipelineStageRef.current !== "countdown") return;
           const area = (box.x2 - box.x1) * (box.y2 - box.y1);
           const best = bestFrameRef.current;
           if (!best || box.confidence > best.confidence ||
               (box.confidence === best.confidence && area > best.area)) {
             bestFrameRef.current = {
-              blob: frame.cropBlob,
-              contextBlob: frame.contextBlob,
+              blob,
               confidence: box.confidence,
               area,
             };
