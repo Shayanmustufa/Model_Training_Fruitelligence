@@ -27,7 +27,13 @@ if (-not $root) { $root = (Get-Location).Path }
 $backendDir  = Join-Path $root "backend\api_server"
 $frontendDir = Join-Path $root "frontend"
 $trainingPython = Join-Path $root "training\.venv\Scripts\python.exe"
-$classifierCheckpoint = Join-Path $env:USERPROFILE "Desktop\model_classifier\mobilevit_fold4_stage2_best.pth"
+$repoClassifierCheckpoint = Join-Path $root "model_classifier\mobilevit_fold4_stage2_best.pth"
+$desktopClassifierCheckpoint = Join-Path $env:USERPROFILE "Desktop\model_classifier\mobilevit_fold4_stage2_best.pth"
+$classifierCheckpoint = if (Test-Path -LiteralPath $repoClassifierCheckpoint -PathType Leaf) {
+    $repoClassifierCheckpoint
+} else {
+    $desktopClassifierCheckpoint
+}
 
 # -- Guard: check dirs exist ---------------------------------------------------
 if (-not (Test-Path $backendDir)) {

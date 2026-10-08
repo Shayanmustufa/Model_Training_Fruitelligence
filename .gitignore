@@ -32,9 +32,9 @@ user_profile.json
 __pycache__/
 *.pyc
 
-# Large model checkpoints — downloaded at runtime via GDRIVE_MODEL_ID
-# The ONNX gate (9.5 MB) IS committed; only the heavy .pth files are excluded
+# Large model checkpoints — only the active local date-classifier checkpoint is included
 *.pth
+!model_classifier/mobilevit_fold4_stage2_best.pth
 training/.venv/
 training/inputs/
 training/outputs/

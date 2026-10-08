@@ -14,6 +14,8 @@ Agrovisoon/
 │       ├── main.py          # App entry-point; exposes /classify, /classify/fruits, /health
 │       ├── requirements.txt # Python dependencies (PyTorch CPU, ONNX Runtime, FastAPI)
 │       └── render.yaml      # Render.com deployment config
+├── model_classifier/
+│   └── mobilevit_fold4_stage2_best.pth  # Local date-variety classifier checkpoint
 ├── frontend/                # Next.js 16 + React 19 + Tailwind v4 web app
 │   ├── src/app/             # App Router pages & API routes
 │   ├── .env.local           # Local env (git-ignored) – copy from .env.local.example
@@ -67,7 +69,7 @@ powershell -ExecutionPolicy Bypass -File .\dev.ps1
 | Runtime | `training\.venv\Scripts\python.exe` for local development |
 | Port | **8000** |
 | Start command | `.\training\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000` |
-| Classifier checkpoint | `Desktop\model_classifier\mobilevit_fold4_stage2_best.pth` (the `dev.ps1` launcher sets `MODEL_PATH` when this file exists) |
+| Classifier checkpoint | `model_classifier\mobilevit_fold4_stage2_best.pth` (the `dev.ps1` launcher prefers the repository copy and falls back to the Desktop copy) |
 | Env vars required | `MODEL_PATH` for the local classifier checkpoint, unless using the configured local/Google Drive fallback |
 | Optional Render env vars | `GDRIVE_MODEL_ID`, `GDRIVE_GATE_ONNX_ID`, `MODEL_CACHE_DIR` |
 
@@ -75,7 +77,11 @@ powershell -ExecutionPolicy Bypass -File .\dev.ps1
 
 ```powershell
 cd backend\api_server
-$env:MODEL_PATH = "$env:USERPROFILE\Desktop\model_classifier\mobilevit_fold4_stage2_best.pth"
+if (Test-Path "..\..\model_classifier\mobilevit_fold4_stage2_best.pth") {
+    $env:MODEL_PATH = (Resolve-Path "..\..\model_classifier\mobilevit_fold4_stage2_best.pth").Path
+} else {
+    $env:MODEL_PATH = "$env:USERPROFILE\Desktop\model_classifier\mobilevit_fold4_stage2_best.pth"
+}
 ..\..\training\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000
 ```
 
